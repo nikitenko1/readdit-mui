@@ -1,0 +1,4 @@
+export const SET_ALL_SUBS_LIST = 'SET_ALL_SUBS_LIST';
+export const SET_TOP_SUBS_LIST = 'SET_TOP_SUBS_LIST';
+export const SUBSCRIBE_SUB_FROM_LIST = 'SUBSCRIBE_SUB_FROM_LIST';
+export const ADD_NEW_SUB = 'ADD_NEW_SUB';

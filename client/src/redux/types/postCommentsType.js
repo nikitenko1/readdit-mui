@@ -1,0 +1,13 @@
+export const FETCH_POST_COMMENTS = 'FETCH_POST_COMMENTS';
+export const CREATE_NEW_POST = 'CREATE_NEW_POST';
+export const UPDATE_POST = 'UPDATE_POST';
+export const TOGGLE_VOTE = 'TOGGLE_VOTE';
+export const VOTE_COMMENT = 'VOTE_COMMENT';
+export const VOTE_REPLY = 'VOTE_REPLY';
+export const ADD_REPLY = 'ADD_REPLY';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const EDIT_REPLY = 'EDIT_REPLY';
+export const DELETE_REPLY = 'DELETE_REPLY';
+export const SORT_COMMENTS = 'SORT_COMMENTS';

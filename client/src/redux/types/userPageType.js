@@ -1,0 +1,3 @@
+export const FETCH_USER = 'FETCH_USER';
+export const TOGGLE_USERPAGE_VOTE = 'TOGGLE_USERPAGE_VOTE';
+export const LOAD_USER_POSTS = 'LOAD_USER_POSTS';
