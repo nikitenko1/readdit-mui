@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { ThemeProvider } from '@mui/material/styles';
+import { Switch, Route } from 'react-router-dom';
+import { Paper } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './redux/actions/userAction';
 import { fetchPosts } from './redux/actions/postAction';
 import { setSubList, setTopSubsList } from './redux/actions/subAction';
 import { Alert } from './components/alert/Alert';
-import { Switch, Route } from 'react-router-dom';
-import NotFoundPage from './components/global/NotFound';
-
+import { customTheme } from './styles/theme';
 import Header from './components/global/Header';
-
+import PageRender from './PageRender';
+import { useStyles } from './styles/index';
 const App = () => {
+  const classes = useStyles();
   const dispatch = useDispatch();
+
+  const { darkMode } = useSelector((state) => state);
+
   useEffect(() => {
     dispatch(fetchPosts('hot'));
     dispatch(setSubList());
@@ -19,17 +25,19 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-[#f3f2ef] dark:bg-black dark:text-white h-screen overflow-y-scroll md:space-y-6">
-      <Alert />
-      <Header />
-      <main className="flex justify-center  gap-x-5 px-4 sm:px-12">
-        <Switch>
-          <Route>
-            <NotFoundPage />
-          </Route>
-        </Switch>
-      </main>
-    </div>
+    <>
+      <ThemeProvider theme={customTheme(darkMode)}>
+        <Paper className={classes.root} elevation={0}>
+          <Alert />
+          <Header />
+          <Switch>
+            <Route exact path="/" component={PageRender} />
+            <Route exact path="/:page" component={PageRender} />
+            <Route exact path="/:page/:slug" component={PageRender} />
+          </Switch>
+        </Paper>
+      </ThemeProvider>
+    </>
   );
 };
 
