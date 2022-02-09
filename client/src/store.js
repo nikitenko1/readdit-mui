@@ -12,7 +12,7 @@ import searchReducer from '././redux/reducers/searchReducer';
 import themeReducer from '././redux/reducers/themeReducer';
 
 const reducer = combineReducers({
-  user: userReducer,
+  auth: userReducer,
   alert: alertReducer,
   posts: postReducer,
   postComments: postCommentsReducer,
