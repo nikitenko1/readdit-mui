@@ -1,8 +1,8 @@
 import { useState } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../redux/actions/userAction';
 import { Link as RouterLink } from 'react-router-dom';
-
 import {
   AppBar,
   Toolbar,
@@ -15,8 +15,8 @@ import RedditIcon from '@mui/icons-material/Reddit';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from '@mui/material/styles';
 import SearchBar from '../searchBar';
-import MobileUserMenu from '../mobileUserMenu';
-import DesktopUserMenu from '../desktopUserMenu';
+import MenuMobile from '../menu/mobile';
+import MenuDesktop from '../menu/desktop';
 
 const Header = () => {
   const classes = useStyles();
@@ -27,8 +27,12 @@ const Header = () => {
   // extra-small to screen sizes from 0 up to and including "xs" //  breakpoints: xs: 0, sm: 600,
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const handleLogout = () => {
-    dispatch(logoutUser());
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser(auth));
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <AppBar position="sticky" color="inherit" elevation={1}>
@@ -58,10 +62,10 @@ const Header = () => {
                 >
                   <SearchIcon />
                 </IconButton>
-                <MobileUserMenu auth={auth} handleLogout={handleLogout} />
+                <MenuMobile auth={auth} logout={handleLogout} />
               </>
             ) : (
-              <DesktopUserMenu auth={auth} handleLogout={handleLogout} />
+              <MenuDesktop auth={auth} logout={handleLogout} />
             )}
           </>
         )}

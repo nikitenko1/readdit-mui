@@ -1,7 +1,6 @@
 import React from 'react';
-import { useStyles } from './styles';
 import { Link as RouterLink } from 'react-router-dom';
-
+import AuthDialog from '../auth';
 import {
   Avatar,
   IconButton,
@@ -13,10 +12,11 @@ import {
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useStyles } from './styles';
 
 // https://mui.com/components/app-bar/#main-content
 
-const MobileUserMenu = ({ auth, handleLogout }) => {
+const MobileUserMenu = ({ auth, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -30,21 +30,23 @@ const MobileUserMenu = ({ auth, handleLogout }) => {
 
   const handleLogoutClick = () => {
     handleClose();
-    handleLogout();
+    logout();
   };
+
+  const loggedUser = JSON.parse(localStorage.getItem('readifyUserKey')) || auth;
 
   return (
     <div>
-      {auth ? (
+      {loggedUser ? (
         <IconButton onClick={handleMenu} className={classes.userBtnMob}>
-          {auth?.avatar?.exists ? (
+          {loggedUser?.avatar?.exists ? (
             <Avatar
               alt={auth.username}
               src="/noAvatar.png"
               className={classes.avatar}
             />
           ) : (
-            <Avatar className={classes.avatar}>{auth.username[0]}</Avatar>
+            <Avatar className={classes.avatar}>{loggedUser.username[0]}</Avatar>
           )}
           <MoreVertIcon color="primary" />
         </IconButton>
@@ -67,53 +69,32 @@ const MobileUserMenu = ({ auth, handleLogout }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {auth ? (
+        {loggedUser ? (
           <div>
-            <MenuItem component={RouterLink} to={`/u`} onClick={handleClose}>
+            <MenuItem
+              component={RouterLink}
+              to={`/u/${loggedUser.username}`}
+              onClick={handleClose}
+            >
               <ListItemIcon>
                 <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
               </ListItemIcon>
             </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon style={{ marginRight: 7 }} /> SubFormModal
-              </ListItemIcon>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                UpdateAvatarModal
-              </ListItemIcon>
-            </MenuItem>
+            <h5>SubFormModal</h5>
+            <h5>UpdateAvatarModal</h5>
             <MenuItem onClick={handleLogoutClick}>
               <ListItemIcon>
                 <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
               </ListItemIcon>
             </MenuItem>
             <Divider variant="middle" />
-            <MenuItem onClick={handleLogoutClick}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                DarkModeMenuItem
-              </ListItemIcon>
-            </MenuItem>
+            <div>DarkModeMenuItem</div>
           </div>
         ) : (
           <div>
-            <MenuItem onClick={handleLogoutClick}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                AuthFormModal
-              </ListItemIcon>
-            </MenuItem>
-
+            <AuthDialog closeMobileMenu={handleClose} />
             <Divider variant="middle" />
-            <MenuItem onClick={handleLogoutClick}>
-              <ListItemIcon>
-                <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                DarkModeMenuItem
-              </ListItemIcon>
-            </MenuItem>
+            <div>DarkModeMenuItem</div>
           </div>
         )}
       </Menu>

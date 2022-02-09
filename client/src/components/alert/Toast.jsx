@@ -1,70 +1,49 @@
-import { useDispatch } from 'react-redux';
-import { ALERT } from '../../redux/types/alertType';
+import React, { useState } from 'react';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import MuiAlert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-const Toast = ({ title, body, bgColor }) => {
-  const dispatch = useDispatch();
-  const handleClose = () => {
-    dispatch({ type: ALERT, payload: {} });
-  };
-  // bg-green-700  bg-red-700
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
+
+const Toast = ({ title, body, severity }) => {
+  const [open, setOpen] = useState(true);
+
   return (
-    <div
-      className={`flex justify-center  items-center m-1 font-medium py-1 px-2 rounded-md text-green-100  ${bgColor} border border-green-700`}
-    >
-      <div slot="avatar">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100%"
-          height="100%"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          className="feather feather-check-circle w-5 h-5 mx-2"
-        >
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-          <polyline points="22 4 12 14.01 9 11.01"></polyline>
-        </svg>
-      </div>
-      <div className="text-xl font-normal  max-w-full flex-initial">
-        <div className="py-2">
-          {title}
-          <div className="text-sm font-base">
-            {typeof body === 'string' ? (
-              body
-            ) : (
-              <ul>
-                {body.map((text, index) => (
-                  <li key={index}>{text}</li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="flex flex-auto flex-row-reverse">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="100%"
-            height="100%"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            className="feather feather-x cursor-pointer hover:text-green-400 rounded-full w-5 h-5 ml-2"
-            onClick={handleClose}
+    <Collapse in={open}>
+      <Alert
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              setOpen(false);
+            }}
           >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </div>
-      </div>
-    </div>
+            <CloseIcon fontSize="inherit" />
+          </IconButton>
+        }
+        sx={{ mb: 2 }}
+        severity={severity}
+        style={{ top: '5px', right: '5px', zIndex: 50, minWidth: '200px' }}
+      >
+        <AlertTitle>{title}</AlertTitle>
+
+        {typeof body === 'string' ? (
+          body
+        ) : (
+          <ul>
+            {body.map((text, index) => (
+              <li key={index}>{text}</li>
+            ))}
+          </ul>
+        )}
+      </Alert>
+    </Collapse>
   );
 };
 
