@@ -8,7 +8,7 @@ import { fetchPosts } from './redux/actions/postAction';
 import { setSubList, setTopSubsList } from './redux/actions/subAction';
 import { Alert } from './components/alert/Alert';
 import { customTheme } from './styles/theme';
-import Header from './components/global/Header';
+import Header from './components/header';
 import PageRender from './PageRender';
 import { useStyles } from './styles/index';
 const App = () => {
