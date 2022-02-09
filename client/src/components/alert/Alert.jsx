@@ -7,11 +7,22 @@ export const Alert = () => {
   return (
     <div>
       {alert.loading && <Loading />}
+      {/* severity="error" "warning" "info" "success" */}
       {alert.errors && (
-        <Toast title="Errors" body={alert.errors} bgColor="bg-danger" />
+        <Toast
+          toast={true}
+          title="Errors"
+          body={alert.errors}
+          severity="error"
+        />
       )}
       {alert.success && (
-        <Toast title="Success" body={alert.success} bgColor="bg-success" />
+        <Toast
+          open={true}
+          title="Success"
+          body={alert.success}
+          severity="success"
+        />
       )}
     </div>
   );

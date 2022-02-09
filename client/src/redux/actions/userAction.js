@@ -23,6 +23,12 @@ export const loginUser = (credentials) => async (dispatch) => {
       payload: user,
     });
     dispatch({ type: ALERT, payload: { loading: false } });
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: `Welcome, ${credentials.username}. You're logged in!`,
+      },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }
@@ -40,23 +46,34 @@ export const signupUser = (credentials) => async (dispatch) => {
       payload: user,
     });
     dispatch({ type: ALERT, payload: { loading: false } });
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: `Welcome, ${credentials.username}. You've been successfully registered.`,
+      },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }
 };
 
-export const logoutUser = () => (dispatch) => {
+export const logoutUser = (credentials) => (dispatch) => {
   try {
-    dispatch({ type: ALERT, payload: { loading: true } });
-    storageService.logoutUser();
+    localStorage.removeItem('readifyUserKey');
     authService.setToken(null);
 
     dispatch({
       type: LOGOUT,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
+    dispatch({
+      type: ALERT,
+      payload: {
+        success: `Oops, u/${credentials.username} logged out`,
+      },
+    });
   } catch (err) {
-    dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    dispatch({ type: ALERT, payload: { errors: `Something went wrong!` } });
   }
 };
 

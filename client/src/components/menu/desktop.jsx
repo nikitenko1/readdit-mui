@@ -1,7 +1,7 @@
 import React from 'react';
-import { useStyles } from './styles';
-import { Link as RouterLink } from 'react-router-dom';
 
+import { Link as RouterLink } from 'react-router-dom';
+import AuthDialog from '../auth';
 import {
   IconButton,
   Menu,
@@ -11,9 +11,10 @@ import {
 } from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useStyles } from './styles';
 // https://mui.com/components/app-bar/#main-content
 
-const DesktopUserMenu = ({ auth, handleLogout }) => {
+const DesktopUserMenu = ({ auth, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -27,12 +28,14 @@ const DesktopUserMenu = ({ auth, handleLogout }) => {
 
   const handleLogoutClick = () => {
     handleClose();
-    handleLogout();
+    logout();
   };
+
+  const loggedUser = JSON.parse(localStorage.getItem('readifyUserKey')) || auth;
 
   return (
     <div>
-      {!auth ? (
+      {auth ? (
         <>
           <div>
             <IconButton
@@ -60,42 +63,42 @@ const DesktopUserMenu = ({ auth, handleLogout }) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem component={RouterLink} to="/u" onClick={handleClose}>
-                <ListItemIcon>
-                  <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                  SubFormModal
-                </ListItemIcon>
-              </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                  <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                  UpdateAvatarModal
-                </ListItemIcon>
-              </MenuItem>
+              {loggedUser ? (
+                <div>
+                  <MenuItem
+                    component={RouterLink}
+                    to={`/u/${loggedUser.username}`}
+                    onClick={handleClose}
+                  >
+                    <ListItemIcon>
+                      <AccountCircleIcon style={{ marginRight: 7 }} /> My
+                      Profile
+                    </ListItemIcon>
+                  </MenuItem>
+                  <h5>SubFormModal</h5>
+                  <h5>UpdateAvatarModal</h5>
 
-              <MenuItem onClick={handleLogoutClick}>
-                <ListItemIcon>
-                  <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
-                </ListItemIcon>
-              </MenuItem>
-              <Divider variant="middle" />
-              <MenuItem onClick={handleLogoutClick}>
-                <ListItemIcon>
-                  <PowerSettingsNewIcon style={{ marginRight: 7 }} />{' '}
-                  DarkModeMenuItem
-                </ListItemIcon>
-              </MenuItem>
+                  <MenuItem onClick={handleLogoutClick}>
+                    <ListItemIcon>
+                      <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
+                    </ListItemIcon>
+                  </MenuItem>
+                  <Divider variant="middle" />
+                  <h5>DarkModeMenuItem</h5>
+                </div>
+              ) : (
+                <div>
+                  <AuthDialog closeMobileMenu={handleClose} />
+                  <Divider variant="middle" />
+                  <div>DarkModeMenuItem</div>
+                </div>
+              )}
             </Menu>
           </div>
         </>
       ) : (
         <div className={classes.navItems}>
-          <div>AuthFormModal</div>
+          <AuthDialog />
           <div>DarkModeMenuItem</div>
         </div>
       )}
