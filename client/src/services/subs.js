@@ -1,47 +1,34 @@
-import axios from 'axios';
-import { token } from './auth';
-const setToken = () => {
-  return {
-    headers: { Authorization: token },
-  };
-};
+import { postAPI, getAPI, patchAPI } from './API';
+
 const getAllSubreddits = async () => {
-  const response = await axios.get(`${baseUrl}`);
+  const response = await getAPI('subreddits');
   return response.data;
 };
-const baseUrl = `/api/subreddits`;
+
 const getSubreddit = async (subredditName, sortBy, limit, page) => {
-  const response = await axios.get(
-    `${baseUrl}/r/${subredditName}/?sortby=${sortBy}&limit=${limit}&page=${page}`
+  const response = await getAPI(
+    `subreddits/r/${subredditName}/?sortby=${sortBy}&limit=${limit}&page=${page}`
   );
   return response.data;
 };
 
-const createSubreddit = async (subredditObj) => {
-  const response = await axios.post(`${baseUrl}`, subredditObj, setToken());
+const createSubreddit = async (subredditObj, token) => {
+  const response = await postAPI('subreddits', subredditObj, token);
   return response.data;
 };
 
-const subscribeSub = async (id) => {
-  const response = await axios.post(
-    `${baseUrl}/${id}/subscribe`,
-    null,
-    setToken()
-  );
+const subscribeSub = async (id, token) => {
+  const response = await postAPI(`subreddits/${id}/subscribe`, null, token);
   return response.data;
 };
 
-const updateDescription = async (id, descriptionObj) => {
-  const response = await axios.patch(
-    `${baseUrl}/${id}`,
-    descriptionObj,
-    setToken()
-  );
+const updateDescription = async (id, descriptionObj, token) => {
+  const response = await patchAPI(`subreddits/${id}`, descriptionObj, token);
   return response.data;
 };
 
 const getTopSubreddits = async () => {
-  const response = await axios.get(`${baseUrl}/top10`);
+  const response = await getAPI(`subreddits/top10`);
   return response.data;
 };
 

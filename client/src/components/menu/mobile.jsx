@@ -13,6 +13,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useStyles } from './styles';
+import DarkMode from '../darkMode';
+import SubDialog from '../subs';
 
 // https://mui.com/components/app-bar/#main-content
 
@@ -80,21 +82,23 @@ const MobileUserMenu = ({ auth, logout }) => {
                 <AccountCircleIcon style={{ marginRight: 7 }} /> My Profile
               </ListItemIcon>
             </MenuItem>
-            <h5>SubFormModal</h5>
-            <h5>UpdateAvatarModal</h5>
+            <SubDialog type="mobile" handleCloseMenu={handleClose} />
+            <MenuItem>
+              <ListItemIcon>UpdateAvatarModal</ListItemIcon>
+            </MenuItem>
             <MenuItem onClick={handleLogoutClick}>
               <ListItemIcon>
                 <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout
               </ListItemIcon>
             </MenuItem>
             <Divider variant="middle" />
-            <div>DarkModeMenuItem</div>
+            <DarkMode closeMenu={handleClose} />
           </div>
         ) : (
           <div>
             <AuthDialog closeMobileMenu={handleClose} />
             <Divider variant="middle" />
-            <div>DarkModeMenuItem</div>
+            <DarkMode closeMenu={handleClose} />
           </div>
         )}
       </Menu>

@@ -7,6 +7,7 @@ import {
   ListItemIcon,
   useMediaQuery,
 } from '@mui/material';
+import { DialogTitle } from '../title/DialogTitle';
 import AuthForm from './authForm';
 import { useTheme } from '@mui/material/styles';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
@@ -57,6 +58,7 @@ const AuthDialog = ({ closeMobileMenu }) => {
         classes={{ paper: classes.dialogWrapper }}
       >
         <DialogContent>
+          <DialogTitle></DialogTitle>
           <AuthForm />
         </DialogContent>
       </Dialog>

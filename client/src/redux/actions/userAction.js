@@ -16,7 +16,6 @@ export const loginUser = (credentials) => async (dispatch) => {
     dispatch({ type: ALERT, payload: { loading: true } });
     const user = await authService.login(credentials);
     storageService.saveUser(user);
-    authService.setToken(user.token);
 
     dispatch({
       type: LOGIN,
@@ -39,7 +38,6 @@ export const signupUser = (credentials) => async (dispatch) => {
     dispatch({ type: ALERT, payload: { loading: true } });
     const user = await authService.signup(credentials);
     storageService.saveUser(user);
-    authService.setToken(user.token);
 
     dispatch({
       type: SIGNUP,
@@ -59,17 +57,18 @@ export const signupUser = (credentials) => async (dispatch) => {
 
 export const logoutUser = (credentials) => (dispatch) => {
   try {
+    dispatch({ type: ALERT, payload: { loading: true } });
     localStorage.removeItem('readifyUserKey');
-    authService.setToken(null);
 
     dispatch({
       type: LOGOUT,
+      payload: null,
     });
-
+    dispatch({ type: ALERT, payload: { loading: false } });
     dispatch({
       type: ALERT,
       payload: {
-        success: `Oops, u/${credentials.username} logged out`,
+        warning: `Oops, u/${credentials.username} logged out`,
       },
     });
   } catch (err) {
@@ -83,8 +82,6 @@ export const setUser = () => (dispatch) => {
     const loggedUser = storageService.loadUser();
 
     if (loggedUser) {
-      authService.setToken(loggedUser.token);
-
       dispatch({
         type: SET_USER,
         payload: loggedUser,

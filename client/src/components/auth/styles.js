@@ -7,7 +7,13 @@ export const useStyles = (authType) =>
         backgroundColor: '#ffe5d8',
       },
     },
-    dialogWrapper: {},
+    dialogWrapper: {
+      padding: 0,
+      overflow: 'hidden',
+      [theme.breakpoints.down('sm')]: {
+        padding: 0,
+      },
+    },
     authWrapper: {
       display: 'flex',
       flexDirection: authType === 'login' ? 'row' : 'row-reverse',
