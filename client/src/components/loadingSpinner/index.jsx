@@ -1,25 +1,17 @@
 import React from 'react';
-import { Button } from '@mui/material';
-import AutorenewIcon from '@mui/icons-material/Autorenew';
+import { Typography, CircularProgress } from '@mui/material';
 import { useStyles } from './styles';
 
-const LoadMoreButton = ({ handleLoadPosts, loading }) => {
+const LoadingSpinner = ({ text }) => {
   const classes = useStyles();
   return (
-    <div className={classes.loadBtnWrapper}>
-      <Button
-        color="primary"
-        variant="outlined"
-        size="large"
-        onClick={handleLoadPosts}
-        startIcon={<AutorenewIcon />}
-        className={classes.loadBtn}
-        disabled={loading}
-      >
-        {loading ? 'Loading...' : 'Load more'}
-      </Button>
+    <div className={classes.loadSpinner}>
+      <CircularProgress size="6em" disableShrink />
+      <Typography color="primary" variant="body1">
+        {text}
+      </Typography>
     </div>
   );
 };
 
-export default LoadMoreButton;
+export default LoadingSpinner;

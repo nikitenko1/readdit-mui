@@ -6,6 +6,6 @@ export const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
-    minHeight: '100vH',
+    minHeight: '100vh',
   },
 });
