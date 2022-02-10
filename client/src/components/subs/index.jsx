@@ -53,14 +53,14 @@ const SubDialog = ({ type, handleCloseMenu }) => {
 
       <Dialog
         open={open}
-        onClose={handleClose}
         maxWidth="sm"
         classes={{ paper: classes.dialogWrapper }}
+        onClose={handleClose}
         fullWidth
       >
-        <DialogTitle>Create a new subreddish</DialogTitle>
+        <DialogTitle onClose={handleClose}>Create a new subreddish</DialogTitle>
         <DialogContent>
-          <SubForm />
+          <SubForm onClose={handleClose} />
         </DialogContent>
       </Dialog>
     </div>

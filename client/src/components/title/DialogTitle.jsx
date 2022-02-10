@@ -1,44 +1,38 @@
 import React from 'react';
 import { Typography, IconButton } from '@mui/material';
-import MuiDialogTitle from '@mui/material/DialogTitle';
-import MuiDialogContent from '@mui/material/DialogContent';
-import MuiDialogActions from '@mui/material/DialogActions';
+
+import MuiDialogTitle from '@material-ui/core/DialogTitle';
+
 import CloseIcon from '@mui/icons-material/Close';
-import { withStyles } from '@material-ui/core/styles';
 
-const styles = (theme) => ({
-  root: {
-    margin: 0,
-    paddingBottom: theme.spacing(2),
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing(1),
-    top: theme.spacing(1),
-    color: theme.palette.primary.main,
-  },
-});
-
-export const DialogTitle = withStyles(styles)((props) => {
+export const DialogTitle = (props) => {
   const { children, classes, onClose, ...other } = props;
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+    <MuiDialogTitle
+      disabletypography="true"
+      sx={{
+        margin: 8,
+        paddingBottom: 8,
+      }}
+      {...other}
+    >
       <Typography variant="h6" color="primary">
         {children}
       </Typography>
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          sx={{
+            position: 'absolute',
+            right: 30,
+            top: 10,
+            color: (theme) => theme.palette.primary.main,
+          }}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
     </MuiDialogTitle>
   );
-});
-
-export const DialogContent = withStyles((theme) => ({
-  root: {
-    padding: theme.spacing(2),
-  },
-}))(MuiDialogContent);
-
-export const DialogActions = withStyles((theme) => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing(1),
-  },
-}))(MuiDialogActions);
+};
