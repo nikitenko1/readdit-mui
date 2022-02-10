@@ -26,7 +26,7 @@ const validationSchema = yup.object({
     .min(3, 'Must be at least 3 characters'),
 });
 
-const SubForm = () => {
+const SubForm = ({ onClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -37,7 +37,7 @@ const SubForm = () => {
 
       setSubmitting(true);
       await dispatch(addNewSub(values, auth.token));
-
+      onClose();
       history.push(`/r/${values.subredditName}`);
     } catch (err) {
       setSubmitting(false);
@@ -63,12 +63,13 @@ const SubForm = () => {
                 r/
               </Typography>
               <TextInput
-                name="subredditName"
-                type="text"
                 placeholder="Enter name"
                 label="Subreaddit Name"
                 required
                 fullWidth
+                variant="outlined"
+                name="subredditName"
+                type="text"
               />
             </div>
             <div className={classes.descInput}>
@@ -88,8 +89,8 @@ const SubForm = () => {
             </div>
             <Button
               type="submit"
-              color="secondary"
-              variant="contained"
+              color="primary"
+              variant="outlined"
               size="large"
               className={classes.submitButton}
               disabled={isSubmitting}

@@ -9,16 +9,21 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   createSubBtn: { marginTop: '0.5rem' },
+
   formWrapper: {
     [theme.breakpoints.down('sm')]: {
       marginTop: 10,
     },
   },
+
   form: {
+    marginTop: 10,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingBottom: 20,
     [theme.breakpoints.down('sm')]: {
       padding: '0 0 0 0',
     },
