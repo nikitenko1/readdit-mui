@@ -1,25 +1,19 @@
-import axios from 'axios';
-import { token } from './auth';
-const setToken = () => {
-  return {
-    headers: { Authorization: token },
-  };
-};
-const baseUrl = `/api/users`;
+import { postAPI, getAPI, deleteAPI } from './API';
+
 const getUser = async (username, limit, page) => {
-  const response = await axios.get(
-    `${baseUrl}/${username}/?limit=${limit}&page=${page}`
+  const response = await getAPI(
+    `users/${username}/?limit=${limit}&page=${page}`
   );
   return response.data;
 };
 
-const uploadAvatar = async (avatarObj) => {
-  const response = await axios.post(`${baseUrl}/avatar`, avatarObj, setToken());
+const uploadAvatar = async (avatarObj, token) => {
+  const response = await postAPI(`users/avatar`, avatarObj, token);
   return response.data;
 };
 
-const removeAvatar = async () => {
-  const response = await axios.delete(`${baseUrl}/avatar`, setToken());
+const removeAvatar = async (token) => {
+  const response = await deleteAPI(`users/avatar`, token);
   return response.data;
 };
 

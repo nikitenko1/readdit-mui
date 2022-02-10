@@ -12,6 +12,8 @@ import {
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useStyles } from './styles';
+import DarkMode from '../darkMode';
+import SubDialog from '../subs';
 // https://mui.com/components/app-bar/#main-content
 
 const DesktopUserMenu = ({ auth, logout }) => {
@@ -75,8 +77,10 @@ const DesktopUserMenu = ({ auth, logout }) => {
                       Profile
                     </ListItemIcon>
                   </MenuItem>
-                  <h5>SubFormModal</h5>
-                  <h5>UpdateAvatarModal</h5>
+                  <SubDialog handleCloseMenu={handleClose} />
+                  <MenuItem>
+                    <ListItemIcon>UpdateAvatarModal</ListItemIcon>
+                  </MenuItem>
 
                   <MenuItem onClick={handleLogoutClick}>
                     <ListItemIcon>
@@ -84,13 +88,13 @@ const DesktopUserMenu = ({ auth, logout }) => {
                     </ListItemIcon>
                   </MenuItem>
                   <Divider variant="middle" />
-                  <h5>DarkModeMenuItem</h5>
+                  <DarkMode />
                 </div>
               ) : (
                 <div>
                   <AuthDialog closeMobileMenu={handleClose} />
                   <Divider variant="middle" />
-                  <div>DarkModeMenuItem</div>
+                  <DarkMode closeMenu={handleClose} />
                 </div>
               )}
             </Menu>
@@ -99,7 +103,7 @@ const DesktopUserMenu = ({ auth, logout }) => {
       ) : (
         <div className={classes.navItems}>
           <AuthDialog />
-          <div>DarkModeMenuItem</div>
+          <DarkMode closeMenu={handleClose} navItem={true} />
         </div>
       )}
     </div>

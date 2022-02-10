@@ -1,11 +1,16 @@
 import React from 'react';
+import { Container } from '@mui/material';
+import { useStyles } from './styles';
 
-const index = () => {
+const Index = () => {
+  const classes = useStyles();
   return (
-    <div>
-      <h2>Hello</h2>
-    </div>
+    <Container disableGutters className={classes.homepage}>
+      <div className={classes.postsPanel}>
+        <h2>Hello</h2>
+      </div>
+    </Container>
   );
 };
 
-export default index;
+export default Index;

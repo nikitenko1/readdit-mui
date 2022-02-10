@@ -51,18 +51,22 @@ export const toggleSubscribe = (id, subscribedBy) => async (dispatch) => {
   }
 };
 
-export const addNewSub = (subredditObj) => async (dispatch) => {
-  const createdSub = await subService.createSubreddit(subredditObj);
+export const addNewSub = (values, token) => async (dispatch) => {
   try {
+    const res = await subService.createSubreddit(values, token);
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
       type: ADD_NEW_SUB,
       payload: {
-        subredditName: createdSub.subredditName,
-        id: createdSub.id,
+        subredditName: res.subredditName,
+        id: res.id,
       },
     });
     dispatch({ type: ALERT, payload: { loading: false } });
+    dispatch({
+      type: ALERT,
+      payload: { success: `New subreddish created: r/${values.subredditName}` },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }

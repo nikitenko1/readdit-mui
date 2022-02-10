@@ -16,6 +16,14 @@ export const Alert = () => {
           severity="error"
         />
       )}
+      {alert.warning && (
+        <Toast
+          toast={true}
+          title="Warning"
+          body={alert.warning}
+          severity="warning"
+        />
+      )}
       {alert.success && (
         <Toast
           open={true}

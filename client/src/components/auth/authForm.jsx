@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { signupUser, loginUser } from '../../redux/actions/userAction';
 import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { TextInput } from './FormikMuiFields';
+import { TextInput } from '../FormikMuiFields';
 import {
   Button,
   Typography,
