@@ -1,17 +1,10 @@
 import React from 'react';
+import { useStyles } from './styles';
 
 const Loading = () => {
+  const classes = useStyles();
   return (
-    <div
-      className="fixed w-full min-h-screen text-center loading"
-      style={{
-        background: '#0007',
-        color: 'white',
-        top: 0,
-        left: 0,
-        zIndex: 99,
-      }}
-    >
+    <div className={classes.loading}>
       <svg width="205" height="250" viewBox="0 0 40 50">
         <polygon
           stroke="#fff"
