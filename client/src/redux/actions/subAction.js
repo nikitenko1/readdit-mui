@@ -45,13 +45,14 @@ export const toggleSubscribe = (id, subscribedBy) => async (dispatch) => {
     });
 
     await subService.subscribeSub(id);
+
     dispatch({ type: ALERT, payload: { loading: false } });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }
 };
 
-export const addNewSub = (values, token)  => async (dispatch) => {
+export const addNewSub = (values, token) => async (dispatch) => {
   try {
     const res = await subService.createSubreddit(values, token);
     dispatch({ type: ALERT, payload: { loading: true } });

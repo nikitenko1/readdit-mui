@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
   homepage: {
-    minWidth: '98%',
+    minWidth: '95%',
     marginTop: '0.5rem',
     display: 'flex',
     [theme.breakpoints.down('md')]: {
@@ -12,7 +12,6 @@ export const useStyles = makeStyles((theme) => ({
   },
   postsPanel: {
     minWidth: '40vw',
-    background: '#ddd',
     flexGrow: 1,
   },
 }));
