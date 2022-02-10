@@ -95,7 +95,7 @@ export const setUser = () => (dispatch) => {
 export const postAvatar = (avatarImage, token) => async (dispatch) => {
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
-    console.log({ image: avatarImage });
+
     const uploadedAvatar = await userService.uploadAvatar(
       {
         avatarImage,
