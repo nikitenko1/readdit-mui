@@ -16,7 +16,7 @@ export const DialogTitle = (props) => {
       }}
       {...other}
     >
-      <Typography variant="h6" color="primary">
+      <Typography variant="node" color="primary">
         {children}
       </Typography>
       {onClose ? (

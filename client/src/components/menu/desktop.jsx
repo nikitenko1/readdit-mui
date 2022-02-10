@@ -14,6 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useStyles } from './styles';
 import DarkMode from '../darkMode';
 import SubDialog from '../subs';
+import UpdateAvatarDialog from '../updateAvatar';
 // https://mui.com/components/app-bar/#main-content
 
 const DesktopUserMenu = ({ auth, logout }) => {
@@ -78,9 +79,11 @@ const DesktopUserMenu = ({ auth, logout }) => {
                     </ListItemIcon>
                   </MenuItem>
                   <SubDialog handleCloseMenu={handleClose} />
-                  <MenuItem>
-                    <ListItemIcon>UpdateAvatarModal</ListItemIcon>
-                  </MenuItem>
+
+                  <UpdateAvatarDialog
+                    handleCloseMenu={handleClose}
+                    user={loggedUser}
+                  />
 
                   <MenuItem onClick={handleLogoutClick}>
                     <ListItemIcon>
@@ -92,7 +95,7 @@ const DesktopUserMenu = ({ auth, logout }) => {
                 </div>
               ) : (
                 <div>
-                  <AuthDialog closeMobileMenu={handleClose} />
+                  <AuthDialog />
                   <Divider variant="middle" />
                   <DarkMode closeMenu={handleClose} />
                 </div>

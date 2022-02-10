@@ -15,8 +15,7 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import { useStyles } from './styles';
 import DarkMode from '../darkMode';
 import SubDialog from '../subs';
-
-// https://mui.com/components/app-bar/#main-content
+import UpdateAvatarDialog from '../updateAvatar';
 
 const MobileUserMenu = ({ auth, logout }) => {
   const classes = useStyles();
@@ -83,9 +82,10 @@ const MobileUserMenu = ({ auth, logout }) => {
               </ListItemIcon>
             </MenuItem>
             <SubDialog type="mobile" handleCloseMenu={handleClose} />
-            <MenuItem>
-              <ListItemIcon>UpdateAvatarModal</ListItemIcon>
-            </MenuItem>
+            <UpdateAvatarDialog
+              handleCloseMenu={handleClose}
+              user={loggedUser}
+            />
             <MenuItem onClick={handleLogoutClick}>
               <ListItemIcon>
                 <PowerSettingsNewIcon style={{ marginRight: 7 }} /> Logout

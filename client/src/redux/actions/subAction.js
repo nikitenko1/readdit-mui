@@ -51,7 +51,7 @@ export const toggleSubscribe = (id, subscribedBy) => async (dispatch) => {
   }
 };
 
-export const addNewSub = (values, token) => async (dispatch) => {
+export const addNewSub = (values, token)  => async (dispatch) => {
   try {
     const res = await subService.createSubreddit(values, token);
     dispatch({ type: ALERT, payload: { loading: true } });

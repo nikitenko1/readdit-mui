@@ -58,7 +58,7 @@ const SubDialog = ({ type, handleCloseMenu }) => {
         onClose={handleClose}
         fullWidth
       >
-        <DialogTitle onClose={handleClose}>Create a new subreddish</DialogTitle>
+        <DialogTitle onClose={handleClose}>Create a new subreaddit</DialogTitle>
         <DialogContent>
           <SubForm onClose={handleClose} />
         </DialogContent>
