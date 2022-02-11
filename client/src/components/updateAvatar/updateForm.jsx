@@ -125,7 +125,7 @@ const UpdateAvatarForm = ({ closeModal }) => {
           </IconButton>
         )}
       </div>
-      {avatar && (
+      {avatar && ( 
         <div className={classes.imagePreview}>
           <img alt={fileName} src={avatar} width={mobile ? 250 : 350} />
         </div>
@@ -135,7 +135,7 @@ const UpdateAvatarForm = ({ closeModal }) => {
         size={mobile ? 'medium' : 'large'}
         variant="contained"
         color="secondary"
-        className={classes.submitButton}
+        sx={{ mt: 2 }}
         fullWidth
         startIcon={<FaceIcon />}
         onClick={handleAvatarUpload}

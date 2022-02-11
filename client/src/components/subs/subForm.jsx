@@ -5,7 +5,7 @@ import { Formik, Form } from 'formik';
 import { TextInput } from '../FormikMuiFields';
 import * as yup from 'yup';
 import { useStyles } from './styles';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import AddIcon from '@mui/icons-material/Add';
 
@@ -59,6 +59,7 @@ const SubForm = ({ onClose }) => {
                 className={classes.inputIconText}
                 color="primary"
                 variant="h5"
+                sx={{ mr: 2 }}
               >
                 r/
               </Typography>
@@ -89,12 +90,12 @@ const SubForm = ({ onClose }) => {
             </div>
             <Button
               type="submit"
-              color="primary"
-              variant="outlined"
+              color="secondary"
+              variant="contained"
               size="large"
-              className={classes.submitButton}
               disabled={isSubmitting}
               startIcon={<AddIcon />}
+              sx={{ mt: 2 }}
             >
               {isSubmitting ? 'Creating' : 'Create Subreaddit'}
             </Button>

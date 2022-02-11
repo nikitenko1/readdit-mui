@@ -36,8 +36,11 @@ const UpdateAvatarDialog = ({ handleCloseMenu, user }) => {
         <DialogTitle onClose={handleClose}>
           {user.avatar.exists ? 'Update your avatar' : 'Add an avatar'}
         </DialogTitle>
-        <DialogContent>
-          <UpdateAvatarForm closeModal={handleClose} onCloseDialog={handleClose} />
+        <DialogContent sx={{ p: 2 }}>
+          <UpdateAvatarForm
+            closeModal={handleClose}
+            onCloseDialog={handleClose}
+          />
         </DialogContent>
       </Dialog>
     </div>

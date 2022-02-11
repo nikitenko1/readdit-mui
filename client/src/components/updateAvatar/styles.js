@@ -24,7 +24,7 @@ export const useStyles = makeStyles((theme) => ({
     alignItems: 'flex-end',
     marginBottom: '1.4rem',
   },
-  submitButton: { marginTop: '1.4rem' },
+
   clearSelectionBtn: {
     padding: '0.25rem',
   },
