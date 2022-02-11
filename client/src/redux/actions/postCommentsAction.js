@@ -30,8 +30,8 @@ export const fetchPostComments = (id) => async (dispatch) => {
   }
 };
 
-export const createNewPost = (postObject) => async (dispatch) => {
-  const addedPost = await postService.addNew(postObject);
+export const createNewPost = (postObject, token) => async (dispatch) => {
+  const addedPost = await postService.addNew(postObject, token);
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
@@ -39,22 +39,29 @@ export const createNewPost = (postObject) => async (dispatch) => {
       payload: addedPost,
     });
 
-    dispatch({ type: ALERT, payload: { loading: false } });
+    dispatch({
+      type: ALERT,
+      payload: { success: `Added new post!` },
+    });
     return addedPost.id;
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }
 };
 
-export const updatePost = (id, postObject) => async (dispatch) => {
-  const updatedPost = await postService.editPost(id, postObject);
+export const updatePost = (id, postObject, token) => async (dispatch) => {
+  const updatedPost = await postService.editPost(id, postObject, token);
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
       type: UPDATE_POST,
       payload: updatedPost,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
+    dispatch({
+      type: ALERT,
+      payload: { success: `Successfully updated the post!` },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
   Dialog,
+  DialogContent,
   Button,
   Fab,
   IconButton,
@@ -18,13 +19,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useDispatch, useSelector } from 'react-redux';
 import HideOnScroll from '../hideOnScroll';
 import { DialogTitle } from '../title/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
+
 import { getCircularAvatar } from '../../utils/cloudinaryTransform';
 import PostForm from './postForm';
 import { useTheme } from '@mui/material/styles';
 import { useStyles } from './styles';
 
-const AddPostDialog = ({ actionType, handleMenuClose }) => {
+const PostDialog = ({ actionType, handleMenuClose }) => {
   const classes = useStyles();
   const theme = useTheme();
   //
@@ -97,10 +98,43 @@ const AddPostDialog = ({ actionType, handleMenuClose }) => {
               {auth.username[0]}
             </Avatar>
           )}
+          <Button
+            color="primary"
+            variant="outlined"
+            onClick={handleTextPost}
+            fullWidth
+            className={classes.createBtn}
+            startIcon={<PostAddIcon />}
+            size="large"
+          >
+            Create Post
+          </Button>
+          <div className={classes.iconGroup}>
+            <IconButton onClick={handleImagePost}>
+              <ImageIcon color="primary" />
+            </IconButton>
+            <IconButton onClick={handleLinkPost}>
+              <LinkIcon color="primary" />
+            </IconButton>
+          </div>
         </Paper>
       )}
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        classes={{ paper: classes.dialogWrapper }}
+        maxWidth="md"
+        fullWidth={true}
+      >
+        <DialogTitle onClose={handleClose}>
+          {actionType === 'edit' ? 'Update your post' : 'Add a new post'}
+        </DialogTitle>
+        <DialogContent sx={{ p: 2 }}>
+          <PostForm actionType={actionType} postType={postType} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
 
-export default AddPostDialog;
+export default PostDialog;
