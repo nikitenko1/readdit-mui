@@ -1,8 +1,9 @@
 import React from 'react';
 import { Container } from '@mui/material';
 import { useStyles } from './styles';
-import PostDialog from '../components/post';
+import PostDialog from '../components/postDialog';
 import TopSubsPanel from '../components/topSubsPanel';
+import PostList from '../components/postList';
 
 const Index = () => {
   const classes = useStyles();
@@ -10,7 +11,7 @@ const Index = () => {
     <Container disableGutters className={classes.homepage}>
       <div className={classes.postsPanel}>
         <PostDialog />
-        <h5>PostList</h5>
+        <PostList />
       </div>
       <TopSubsPanel />
     </Container>

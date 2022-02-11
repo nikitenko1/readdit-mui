@@ -16,6 +16,7 @@ import { useStyles } from './styles';
 import DarkMode from '../darkMode';
 import SubDialog from '../subs';
 import UpdateAvatarDialog from '../updateAvatar';
+import { getCircularAvatar } from '../../utils/cloudinaryTransform';
 
 const MobileUserMenu = ({ auth, logout }) => {
   const classes = useStyles();
@@ -34,7 +35,7 @@ const MobileUserMenu = ({ auth, logout }) => {
     logout();
   };
 
-  const loggedUser = JSON.parse(localStorage.getItem('readifyUserKey')) || auth;
+  const loggedUser = JSON.parse(localStorage.getItem('logged')) || auth;
 
   return (
     <div>
@@ -42,8 +43,8 @@ const MobileUserMenu = ({ auth, logout }) => {
         <IconButton onClick={handleMenu} className={classes.userBtnMob}>
           {loggedUser?.avatar?.exists ? (
             <Avatar
-              alt={auth.username}
-              src="/noAvatar.png"
+              alt={loggedUser.username}
+              src={getCircularAvatar(loggedUser.avatar.imageLink)}
               className={classes.avatar}
             />
           ) : (

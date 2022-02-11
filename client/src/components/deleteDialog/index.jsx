@@ -23,6 +23,12 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleActionClick = () => {
+    handleDelete();
+    handleClose();
+  };
+
   return (
     <div>
       {type === 'comment' ? (
@@ -54,10 +60,7 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
           </ListItemIcon>
         </MenuItem>
       )}
-      {/* https://mui.com/components/modal/#heading-performance */}
-      {/* or render expensive component trees inside your modal  */}
-      {/* change this default behavior by enabling the keepMounted prop */}
-      <Dialog open={open} keepMounted onClose={() => setOpen(false)}>
+      <Dialog open={open} keepMounted onClose={handleClose}>
         <DialogTitle>
           {type === 'comment'
             ? 'Delete Comment?'
@@ -77,7 +80,7 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
         </DialogContent>
         <DialogActions>
           <Button
-            onClose={() => setOpen(false)}
+            onClick={handleClose}
             color="primary"
             variant="outlined"
             size="small"
@@ -85,10 +88,7 @@ const DeleteDialog = ({ title, handleDelete, handleMenuClose, type }) => {
             Cancel
           </Button>
           <Button
-            onClick={() => {
-              handleDelete();
-              handleClose();
-            }}
+            onClick={handleActionClick}
             color="primary"
             variant="contained"
             size="small"

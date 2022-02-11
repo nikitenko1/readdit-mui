@@ -85,7 +85,7 @@ export const toggleDownvote =
     }
   };
 
-export const removePost = (id) => async (dispatch) => {
+export const removePost = (id, token) => async (dispatch) => {
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
 
@@ -93,9 +93,12 @@ export const removePost = (id) => async (dispatch) => {
       type: DELETE_POST,
       payload: id,
     });
-    await postService.deletePost(id);
+    await postService.deletePost(id, token);
 
-    dispatch({ type: ALERT, payload: { loading: false } });
+    dispatch({
+      type: ALERT,
+      payload: { success: `Post deleted!` },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }

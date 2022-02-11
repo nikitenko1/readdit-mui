@@ -16,7 +16,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import LinkIcon from '@mui/icons-material/Link';
 import EditIcon from '@mui/icons-material/Edit';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import HideOnScroll from '../hideOnScroll';
 import { DialogTitle } from '../title/DialogTitle';
 
@@ -25,14 +25,24 @@ import PostForm from './postForm';
 import { useTheme } from '@mui/material/styles';
 import { useStyles } from './styles';
 
-const PostDialog = ({ actionType, handleMenuClose }) => {
+const PostDialog = ({
+  actionType,
+  handleMenuClose,
+  postToEditType,
+  postToEditTitle,
+  postToEditSub,
+  postToEditId,
+  textSubmission,
+  linkSubmission,
+  fromSubreddit,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   //
   const [open, setOpen] = useState(false);
   const [postType, setPostType] = useState('Text');
   const auth = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+
   // extra-small to screen sizes from 0 up to and including "xs" //  breakpoints: xs: 0, sm: 600,
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -130,7 +140,17 @@ const PostDialog = ({ actionType, handleMenuClose }) => {
           {actionType === 'edit' ? 'Update your post' : 'Add a new post'}
         </DialogTitle>
         <DialogContent sx={{ p: 2 }}>
-          <PostForm actionType={actionType} postType={postType} />
+          <PostForm
+            actionType={actionType}
+            postType={postType}
+            postToEditType={postToEditType}
+            postToEditTitle={postToEditTitle}
+            postToEditSub={postToEditSub}
+            postToEditId={postToEditId}
+            textSubmission={textSubmission}
+            linkSubmission={linkSubmission}
+            fromSubreddit={fromSubreddit}
+          />
         </DialogContent>
       </Dialog>
     </div>
