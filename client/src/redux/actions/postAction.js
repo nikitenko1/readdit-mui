@@ -48,7 +48,7 @@ export const loadMorePosts = (sortBy, page) => async (dispatch) => {
 };
 
 export const toggleUpvote =
-  (id, upvotedBy, downvotedBy) => async (dispatch) => {
+  (id, upvotedBy, downvotedBy, token  ) => async (dispatch) => {
     let pointsCount = upvotedBy.length - downvotedBy.length;
     if (pointsCount < 0) {
       pointsCount = 0;
@@ -60,12 +60,12 @@ export const toggleUpvote =
       payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
     });
 
-    await postService.upvotePost(id);
+    await postService.upvotePost(id, token);
     dispatch({ type: ALERT, payload: { loading: false } });
   };
 
 export const toggleDownvote =
-  (id, downvotedBy, upvotedBy) => async (dispatch) => {
+  (id, downvotedBy, upvotedBy, token) => async (dispatch) => {
     let pointsCount = upvotedBy.length - downvotedBy.length;
     if (pointsCount < 0) {
       pointsCount = 0;
@@ -78,7 +78,7 @@ export const toggleDownvote =
         payload: { id, data: { upvotedBy, pointsCount, downvotedBy } },
       });
 
-      await postService.downvotePost(id);
+      await postService.downvotePost(id, token);
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
