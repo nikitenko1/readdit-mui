@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider } from '@mui/material/styles';
 import { Switch, Route } from 'react-router-dom';
 import { Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,10 +6,13 @@ import { setUser } from './redux/actions/userAction';
 import { fetchPosts } from './redux/actions/postAction';
 import { setSubList, setTopSubsList } from './redux/actions/subAction';
 import { Alert } from './components/alert/Alert';
-import { customTheme } from './styles/theme';
 import Header from './components/header';
 import PageRender from './PageRender';
-import { useStyles } from './styles/index';
+import { useStyles } from './pages/styles';
+import { customTheme } from './styles/theme';
+import { ThemeProvider } from '@mui/material/styles';
+import './styles/index.css';
+
 const App = () => {
   const classes = useStyles();
   const dispatch = useDispatch();

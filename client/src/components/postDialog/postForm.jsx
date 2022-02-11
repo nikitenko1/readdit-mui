@@ -44,14 +44,14 @@ const validationSchema = yup.object({
 });
 
 const PostForm = ({
-  actionType,
-  postToEditTitle,
-  postToEditId,
-  postToEditType,
   postType,
+  actionType,
+  postToEditType,
+  postToEditTitle,
+  postToEditSub,
+  postToEditId,
   textSubmission,
   linkSubmission,
-  postToEditSub,
   fromSubreddit,
 }) => {
   const classes = useStyles();
@@ -185,7 +185,7 @@ const PostForm = ({
                 options={subs && subs.allSubs}
                 disabled={actionType === 'edit' || !!fromSubreddit}
                 getOptionLabel={(option) => option.subredditName}
-                getOptionSelected={(option, value) => option.id === value.id}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 renderInput={(params) => (
                   <TextField
                     {...params}

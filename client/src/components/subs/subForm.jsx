@@ -31,6 +31,7 @@ const SubForm = ({ onClose }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { auth } = useSelector((state) => state);
+
   const handleCreateSub = async (values, { setSubmitting }) => {
     try {
       if (!auth.token) return;

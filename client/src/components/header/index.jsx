@@ -22,17 +22,13 @@ const Header = () => {
   const classes = useStyles();
   const [searchOpen, setSearchOpen] = useState(false);
   const theme = useTheme();
-  const auth = useSelector((state) => state.auth);
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   // extra-small to screen sizes from 0 up to and including "xs" //  breakpoints: xs: 0, sm: 600,
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleLogout = async () => {
-    try {
-      await dispatch(logoutUser(auth));
-    } catch (err) {
-      console.log(err);
-    }
+    return await dispatch(logoutUser(auth));
   };
   return (
     <AppBar position="sticky" color="inherit" elevation={1}>

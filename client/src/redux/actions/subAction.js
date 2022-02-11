@@ -57,7 +57,7 @@ export const addNewSub = (values, token) => async (dispatch) => {
     const res = await subService.createSubreddit(values, token);
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
-      type: ADD_NEW_SUB,
+      type: ADD_NEW_SUB, 
       payload: {
         subredditName: res.subredditName,
         id: res.id,
