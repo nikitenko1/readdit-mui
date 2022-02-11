@@ -19,7 +19,7 @@ import { trimLink, prettifyLink, fixUrl } from '../../utils/formatUrl';
 import { UpvoteButton, DownvoteButton } from '../upDownButton';
 import { useTheme } from '@mui/material/styles';
 import { useStyles } from './styles';
-import EditDeleteDialog from '../postEditDialog';
+import EditDeleteDialog from '../postEditDelDialog';
 
 const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
   // const postSchema: title: {}, postType: {}, textSubmission: {}, linkSubmission: {},imageSubmission: {},
@@ -54,9 +54,43 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
   const isUpvoted = auth && upvotedBy.includes(auth.id);
   const isDownvoted = auth && downvotedBy.includes(auth.id);
 
-  const handleUpvoteToggle = () => {};
+  const handleUpvoteToggle = async () => {
+    try {
+      if (!auth.token) return;
 
-  const handleDownvoteToggle = () => {};
+      if (isUpvoted) {
+        const updatedUpvotedBy = upvotedBy.filter((u) => u !== auth.id);
+        dispatch(toggleUpvote(id, updatedUpvotedBy, downvotedBy, auth.token));
+      } else {
+        const updatedUpvotedBy = [...upvotedBy, auth.id];
+        const updatedDownvotedBy = downvotedBy.filter((d) => d !== auth.id);
+        dispatch(
+          toggleUpvote(id, updatedUpvotedBy, updatedDownvotedBy, auth.token)
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDownvoteToggle = () => {
+    try {
+      if (!auth.token) return;
+
+      if (isDownvoted) {
+        const updatedDownvotedBy = downvotedBy.filter((d) => d !== auth.id);
+        dispatch(toggleDownvote(id, updatedDownvotedBy, upvotedBy));
+      } else {
+        const updatedDownvotedBy = [...downvotedBy, auth.id];
+        const updatedUpvotedBy = upvotedBy.filter((u) => u !== auth.id);
+        dispatch(
+          toggleDownvote(id, updatedDownvotedBy, updatedUpvotedBy, auth.token)
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const linkToShow =
     postType === 'Link'
