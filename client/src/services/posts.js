@@ -123,7 +123,7 @@ const updateReply = async (postId, commentId, replyId, replyObj, token) => {
   const response = await patchAPI(
     `posts/${postId}/comment/${commentId}/reply/${replyId}`,
     replyObj,
-    token
+    token 
   );
   return response.data;
 };

@@ -1,21 +1,23 @@
 import { makeStyles } from '@material-ui/core';
 
 export const useStyles = makeStyles((theme) => ({
-  header_left: {
-    flexGrow: 1,
+  left: {
     display: 'flex',
     alignItems: 'center',
+    flexGrow: 1,
     [theme.breakpoints.down('sm')]: {
       marginLeft: '1rem',
     },
   },
-  header_left_logo: {
+  left_wrapper: {
     marginRight: theme.spacing(10),
-    [theme.breakpoints.down('sm')]: {
-      marginRight: 0,
-    },
   },
-  searchBtn: {
-    padding: '0.2rem',
+  logo: {
+    fontFamily: 'Varela Round',
+    textTransform: 'none',
+    fontSize: '1.3rem',
+    padding: '0.1rem',
+    marginRight: '0.3rem',
   },
+  searchBtn: { padding: '0.2rem' },
 }));

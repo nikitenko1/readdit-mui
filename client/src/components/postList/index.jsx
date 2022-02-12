@@ -9,6 +9,7 @@ import {
 import LoadMoreButton from '../loadMoreButton';
 import LoadingSpinner from '../loadingSpinner';
 import PostCard from '../postCard';
+import SortTabBar from '../sortTabBar';
 import { Typography } from '@mui/material';
 
 import { useStyles } from './styles';
@@ -23,8 +24,53 @@ const PostList = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
+  const handleTabChange = async (newValue) => {
+    try {
+      setPageLoading(true);
+      if (sortBy !== 'subscribed') {
+        await dispatch(fetchPosts(newValue));
+      } else {
+        if (!auth.token) return;
+        await dispatch(fetchPosts(newValue, auth.token));
+      }
+      setSortBy(newValue);
+      setPageLoading(false);
+
+      if (page !== 1) {
+        setPage(1);
+      }
+    } catch (err) {
+      setPageLoading(false);
+      console.log(err);
+    }
+  };
+
+  const handleLoadPosts = async () => {
+    try {
+      setLoadingMore(true);
+      if (sortBy !== 'subscribed') {
+        await dispatch(loadMorePosts(sortBy, page + 1));
+      } else {
+        if (!auth.token) return;
+        await dispatch(loadMorePosts(sortBy, page + 1, auth.token));
+      }
+
+      await dispatch(loadMorePosts(sortBy, page + 1));
+      setPage((prevState) => prevState + 1);
+      setLoadingMore(false);
+    } catch (err) {
+      setLoadingMore(false);
+      console.log(err);
+    }
+  };
   return (
     <div className={classes.root}>
+      <SortTabBar
+        sortBy={sortBy}
+        handleTabChange={handleTabChange}
+        subscribedTab={true}
+        user={auth}
+      />
       {posts && posts.results && !pageLoading ? (
         posts.results.map((post) => (
           <PostCard
@@ -36,6 +82,32 @@ const PostList = () => {
         ))
       ) : (
         <LoadingSpinner text={'Fetching posts. Wait a sec.'} />
+      )}
+      {sortBy === 'subscribed' && posts.results.length === 0 && (
+        <div className={classes.noSubscribedPosts}>
+          <Typography variant="h5" color="secondary">
+            No Posts Found
+          </Typography>
+          <Typography variant="h6" color="secondary">
+            Subscribe to more subs if you haven't!
+          </Typography>
+        </div>
+      )}
+      {sortBy === 'subscribed' && posts.results.length === 0 && (
+        <div className={classes.noSubscribedPosts}>
+          <Typography variant="h5" color="secondary">
+            No Posts Found
+          </Typography>
+          <Typography variant="h6" color="secondary">
+            Subscribe to more subs if you haven't!
+          </Typography>
+        </div>
+      )}
+      {posts && 'next' in posts && !pageLoading && (
+        <LoadMoreButton
+          handleLoadPosts={handleLoadPosts}
+          loading={loadingMore}
+        />
       )}
     </div>
   );

@@ -7,13 +7,13 @@ import {
 import { ALERT } from '../types/alertType';
 import postService from '../../services/posts';
 
-export const fetchPosts = (sortBy) => async (dispatch) => {
+export const fetchPosts = (sortBy, token) => async (dispatch) => {
   let posts;
 
   if (sortBy !== 'subscribed') {
     posts = await postService.getPosts(sortBy, 10, 1);
   } else {
-    posts = await postService.getSubPosts(10, 1);
+    posts = await postService.getSubPosts(10, 1, token);
   }
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
@@ -27,12 +27,12 @@ export const fetchPosts = (sortBy) => async (dispatch) => {
   }
 };
 
-export const loadMorePosts = (sortBy, page) => async (dispatch) => {
+export const loadMorePosts = (sortBy, page, token) => async (dispatch) => {
   let posts;
   if (sortBy !== 'subscribed') {
     posts = await postService.getPosts(sortBy, 10, page);
   } else {
-    posts = await postService.getSubPosts(10, page);
+    posts = await postService.getSubPosts(10, page, token);
   }
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
@@ -48,7 +48,7 @@ export const loadMorePosts = (sortBy, page) => async (dispatch) => {
 };
 
 export const toggleUpvote =
-  (id, upvotedBy, downvotedBy, token  ) => async (dispatch) => {
+  (id, upvotedBy, downvotedBy, token) => async (dispatch) => {
     let pointsCount = upvotedBy.length - downvotedBy.length;
     if (pointsCount < 0) {
       pointsCount = 0;

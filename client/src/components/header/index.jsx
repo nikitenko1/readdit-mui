@@ -35,9 +35,10 @@ const Header = () => {
       <Toolbar disableGutters={mobile}>
         {!searchOpen && (
           <>
-            <div className={classes.header_left}>
-              <div className={classes.header_left_wrapper}>
+            <div className={classes.left}>
+              <div className={classes.left_wrapper}>
                 <Button
+                  className={classes.logo}
                   color="primary"
                   startIcon={<RedditIcon />}
                   size="large"
