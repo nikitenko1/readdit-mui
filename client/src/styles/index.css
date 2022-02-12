@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Varela&display=swap');
 body {
   margin: 0;
+  box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   width: calc(100vw - 34px);
   overflow-x: hidden;

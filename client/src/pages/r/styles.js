@@ -9,44 +9,45 @@ export const useStyles = makeStyles((theme) => ({
     minHeight: '90vh',
     paddingBottom: '1rem',
   },
-  userInfoWrapper: {
-    display: 'flex',
-    justifyContent: 'space-around',
+  subInfoWrapper: {
     margin: '0.5rem',
     padding: '0.8rem',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  description: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    flexWrap: 'wrap',
+    margin: '0.3rem 0',
+    maxWidth: 300,
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+      justifyContent: 'center',
     },
   },
-  avatarWrapper: {
+  inputDiv: { display: 'flex', flexDirection: 'column' },
+  submitBtns: {
+    alignSelf: 'flex-end',
+    marginTop: '0.2rem',
+  },
+  cancelBtn: {
+    marginRight: '0.2rem',
+  },
+  iconText: {
+    display: 'flex',
+    alignItems: 'flex-end',
+    [theme.breakpoints.down('sm')]: {
+      justifyContent: 'center',
+    },
+  },
+  secondPanel: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-  avatar: {
-    width: '5em',
-    height: '5em',
     [theme.breakpoints.down('sm')]: {
-      width: '3em',
-      height: '3em',
+      justifyContent: 'center',
     },
   },
-  rightWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    flexGrow: 0.3,
-  },
-  itemWrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  twoItemsDiv: { textAlign: 'center' },
-  cakeDay: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  postsPaper: { margin: '0.5rem' },
-  noPosts: { textAlign: 'center', marginTop: '5rem' },
+  noPosts: { textAlign: 'center', marginTop: '5em' },
 }));

@@ -88,26 +88,27 @@ export const toggleDownvote =
     }
   };
 
-export const toggleSubscribe = (id, subscribedBy) => async (dispatch) => {
-  const subscriberCount = subscribedBy.length;
+export const toggleSubscribe =
+  (id, subscribedBy, token) => async (dispatch) => {
+    const subscriberCount = subscribedBy.length;
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      dispatch({
+        type: SUBSCRIBE_SUB,
+        payload: { subscribedBy, subscriberCount },
+      });
+
+      await subService.subscribeSub(id, token);
+      dispatch({ type: ALERT, payload: { loading: false } });
+    } catch (err) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const editDescription = (id, description, token) => async (dispatch) => {
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
-    dispatch({
-      type: SUBSCRIBE_SUB,
-      payload: { subscribedBy, subscriberCount },
-    });
-
-    await subService.subscribeSub(id);
-    dispatch({ type: ALERT, payload: { loading: false } });
-  } catch (err) {
-    dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
-  }
-};
-
-export const editDescription = (id, description) => async (dispatch) => {
-  try {
-    dispatch({ type: ALERT, payload: { loading: true } });
-    await subService.updateDescription(id, { description });
+    await subService.updateDescription(id, { description }, token);
 
     dispatch({
       type: EDIT_DESCRIPTION,
