@@ -11,7 +11,7 @@ export const customTheme = (darkMode) =>
         xl: 1536,
       },
     },
-    spacing: 8,
+
     palette: {
       type: darkMode ? 'dark' : 'light',
       primary: {

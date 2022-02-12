@@ -8,13 +8,11 @@ import { setSubList, setTopSubsList } from './redux/actions/subAction';
 import { Alert } from './components/alert/Alert';
 import Header from './components/header';
 import PageRender from './PageRender';
-import { useStyles } from './pages/styles';
 import { customTheme } from './styles/theme';
 import { ThemeProvider } from '@mui/material/styles';
 import './styles/index.css';
 
 const App = () => {
-  const classes = useStyles();
   const dispatch = useDispatch();
 
   const { darkMode } = useSelector((state) => state);
@@ -29,7 +27,16 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={customTheme(darkMode)}>
-        <Paper className={classes.root} elevation={0}>
+        <Paper
+          elevation={0}
+          sx={{
+            width: '100vw',
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            minHeight: '100vh',
+          }}
+        >
           <Alert />
           <Header />
           <Switch>
