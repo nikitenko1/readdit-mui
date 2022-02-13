@@ -35,7 +35,7 @@ const UserPage = () => {
   const mobile = useMediaQuery(theme.breakpoints.down('sm'));
   //
   const { slug } = useParams();
-
+  // page: "u" slug: "62070beae7b5a50188d326e4" = useParams()
   useEffect(() => {
     const getUser = async () => {
       await dispatch(fetchUser(slug));

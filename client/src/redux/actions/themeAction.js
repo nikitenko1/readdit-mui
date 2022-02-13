@@ -1,7 +1,8 @@
 import { TOGGLE_DARK_MODE } from '../types/themeType';
 
-const saveDarkMode = (boolean) => localStorage.setItem('darkMode', boolean);
-const loadDarkMode = () => localStorage.getItem('darkMode');
+const saveDarkMode = (boolean) => localStorage.setItem('dark', boolean);
+
+const loadDarkMode = () => localStorage.getItem('dark');
 
 export const toggleDarkMode = (isDarkMode) => {
   return (dispatch) => {
