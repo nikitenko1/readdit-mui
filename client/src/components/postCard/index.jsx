@@ -51,7 +51,8 @@ const PostCard = ({ post, toggleUpvote, toggleDownvote }) => {
   const dispatch = useDispatch();
   const { auth, darkMode } = useSelector((state) => state);
 
-  const isUpvoted = auth && upvotedBy.includes(auth.id);
+  const isUpvoted = auth && upvotedBy.includes(auth.id); 
+  // upvotedBy: 0(pin):"61fe3800fd63ff11544c6b49" id(pin):"61fe3800fd63ff11544c6b49"
   const isDownvoted = auth && downvotedBy.includes(auth.id);
 
   const handleUpvoteToggle = async () => {

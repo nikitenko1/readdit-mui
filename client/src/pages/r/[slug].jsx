@@ -44,7 +44,7 @@ const SubPage = () => {
   const [postsLoading, setPostsLoading] = useState(false);
 
   const { slug } = useParams();
-
+// page: "r" slug: "62070beae7b5a50188d326e4" = useParams()
   const dispatch = useDispatch();
 
   const { auth, subPage } = useSelector((state) => state);
