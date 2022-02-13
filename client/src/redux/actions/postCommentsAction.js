@@ -108,7 +108,7 @@ export const toggleDownvote =
   };
 
 export const toggleCommentUpvote =
-  (postId, commentId, upvotedBy, downvotedBy) => async (dispatch) => {
+  (postId, commentId, upvotedBy, downvotedBy, token) => async (dispatch) => {
     const pointsCount = upvotedBy.length - downvotedBy.length;
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
@@ -117,7 +117,7 @@ export const toggleCommentUpvote =
         payload: { commentId, data: { upvotedBy, pointsCount, downvotedBy } },
       });
 
-      await postService.upvoteComment(postId, commentId);
+      await postService.upvoteComment(postId, commentId, token);
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
@@ -125,7 +125,7 @@ export const toggleCommentUpvote =
   };
 
 export const toggleCommentDownvote =
-  (postId, commentId, downvotedBy, upvotedBy) => async (dispatch) => {
+  (postId, commentId, downvotedBy, upvotedBy, token) => async (dispatch) => {
     const pointsCount = upvotedBy.length - downvotedBy.length;
     try {
       dispatch({ type: ALERT, payload: { loading: true } });
@@ -134,7 +134,7 @@ export const toggleCommentDownvote =
         payload: { commentId, data: { upvotedBy, pointsCount, downvotedBy } },
       });
 
-      await postService.downvoteComment(postId, commentId);
+      await postService.downvoteComment(postId, commentId, token);
       dispatch({ type: ALERT, payload: { loading: false } });
     } catch (err) {
       dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
@@ -183,60 +183,86 @@ export const toggleReplyDownvote =
     }
   };
 
-export const addReply = (postId, commentId, reply) => async (dispatch) => {
-  const addedReply = await postService.postReply(postId, commentId, {
-    reply,
-  });
-  try {
-    dispatch({ type: ALERT, payload: { loading: true } });
-    dispatch({
-      type: ADD_REPLY,
-      payload: { commentId, addedReply },
-    });
-    dispatch({ type: ALERT, payload: { loading: false } });
-  } catch (err) {
-    dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
-  }
-};
+export const addReply =
+  (postId, commentId, reply, token) => async (dispatch) => {
+    const addedReply = await postService.postReply(
+      postId,
+      commentId,
+      {
+        reply,
+      },
+      token
+    );
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      dispatch({
+        type: ADD_REPLY,
+        payload: { commentId, addedReply },
+      });
 
-export const addComment = (postId, comment) => async (dispatch) => {
-  const addedComment = await postService.postComment(postId, { comment });
+      dispatch({
+        type: ALERT,
+        payload: { success: `Reply submitted!` },
+      });
+    } catch (err) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const addComment = (postId, comment, token) => async (dispatch) => {
+  const addedComment = await postService.postComment(
+    postId,
+    { comment },
+    token
+  );
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
       type: ADD_COMMENT,
       payload: addedComment,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
-  } catch (err) {
-    dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
-  }
-};
-
-export const editComment = (postId, commentId, comment) => async (dispatch) => {
-  await postService.updateComment(postId, commentId, { comment });
-  const updatedAt = Date.now();
-  try {
-    dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
-      type: EDIT_COMMENT,
-      payload: { commentId, data: { updatedAt, commentBody: comment } },
+      type: ALERT,
+      payload: { success: `Comment submitted!` },
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }
 };
 
-export const deleteComment = (postId, commentId) => async (dispatch) => {
-  await postService.removeComment(postId, commentId);
+export const editComment =
+  (postId, commentId, comment, token) => async (dispatch) => {
+    await postService.updateComment(postId, commentId, { comment }, token);
+    const updatedAt = Date.now();
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      dispatch({
+        type: EDIT_COMMENT,
+        payload: { commentId, data: { updatedAt, commentBody: comment } },
+      });
+
+      dispatch({
+        type: ALERT,
+        payload: { success: `Comment edited!` },
+      });
+    } catch (err) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
+
+export const deleteComment = (postId, commentId, token) => async (dispatch) => {
+  await postService.removeComment(postId, commentId, token);
   try {
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
       type: DELETE_COMMENT,
       payload: commentId,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
+    dispatch({
+      type: ALERT,
+      payload: { success: `Comment deleted!` },
+    });
   } catch (err) {
     dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
   }

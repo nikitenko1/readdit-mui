@@ -12,9 +12,9 @@ import EditDeleteDialog from '../../components/postEditDelDialog';
 import { trimLink, prettifyLink, fixUrl } from '../../utils/formatUrl';
 import ReactHtmlParser from 'html-react-parser';
 // parse('<p>Hello, World!</p>'); // React.createElement('p', {}, 'Hello, World!')
-import CommentDisplay from '../../components/comment/Display';
-import CommentSortMenu from '../../components/comment/SortMenu';
-import CommentInput from '../../components/comment/Input';
+import CommentDisplay from '../../components/comments/Display';
+import SortComments from '../../components/comments/SortComments';
+import CommentInput from '../../components/comments/Input';
 import LoadingSpinner from '../../components/loadingSpinner';
 import {
   Container,
@@ -226,11 +226,16 @@ const PostCommentsPage = () => {
               )}
             </div>
             <CommentInput auth={auth} postId={id} mobile={mobile} />
-            <CommentSortMenu />
+            <SortComments />
           </div>
         </div>
         <Divider className={classes.divider} />
-        <CommentDisplay comments={comments} postId={id} mobile={mobile} />
+        <CommentDisplay
+          auth={auth}
+          comments={comments}
+          postId={id}
+          mobile={mobile}
+        />
       </Paper>
     </Container>
   );
