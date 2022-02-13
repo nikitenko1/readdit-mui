@@ -55,7 +55,7 @@ const Header = () => {
                 <IconButton
                   color="primary"
                   className={classes.searchBtn}
-                  onClick={() => setSearchOpen((prevState) => !prevState)}
+                  onClick={() => setSearchOpen(!searchOpen)}
                 >
                   <SearchIcon />
                 </IconButton>

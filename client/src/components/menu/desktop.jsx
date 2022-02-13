@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Link as RouterLink } from 'react-router-dom';
 import AuthDialog from '../auth';
@@ -24,6 +24,7 @@ import UpdateAvatarDialog from '../updateAvatar';
 const DesktopUserMenu = ({ auth, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [loggedUser, setLoggedUser] = React.useState(null);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,8 +38,12 @@ const DesktopUserMenu = ({ auth, logout }) => {
     handleClose();
     logout();
   };
-
-  const loggedUser = JSON.parse(localStorage.getItem('logged')) || auth;
+  useEffect(() => {
+    const getLoggedUser = () => {
+      setLoggedUser(JSON.parse(localStorage.getItem('logged')) || auth);
+    };
+    getLoggedUser();
+  }, [auth]);
 
   return (
     <div>

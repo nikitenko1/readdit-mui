@@ -20,7 +20,7 @@ export const loginUser = (credentials) => async (dispatch) => {
       type: LOGIN,
       payload: user,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
     dispatch({
       type: ALERT,
       payload: {
@@ -42,7 +42,7 @@ export const signupUser = (credentials) => async (dispatch) => {
       type: SIGNUP,
       payload: user,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
     dispatch({
       type: ALERT,
       payload: {
@@ -63,7 +63,7 @@ export const logoutUser = (credentials) => (dispatch) => {
       type: LOGOUT,
       payload: null,
     });
-    dispatch({ type: ALERT, payload: { loading: false } });
+
     dispatch({
       type: ALERT,
       payload: {
