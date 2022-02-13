@@ -5,7 +5,8 @@ export const useStyles = makeStyles((theme) => ({
     flexGrow: 0.75,
     [theme.breakpoints.down('sm')]: {
       flexGrow: 1,
-      padding: '0 0.5rem',
+      padding: '0 1rem',
     },
   },
+  inputField: {},
 }));

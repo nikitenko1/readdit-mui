@@ -78,6 +78,7 @@ const PostList = () => {
             key={post.id}
             toggleUpvote={toggleUpvote}
             toggleDownvote={toggleDownvote}
+            auth={auth}
           />
         ))
       ) : (
