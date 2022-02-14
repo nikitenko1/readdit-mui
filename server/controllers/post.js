@@ -7,7 +7,7 @@ const cloudinary = require('cloudinary').v2;
 cloudinary.config({
   cloud_name: 'dvpy1nsjp',
   api_key: '262435378638658',
-  api_secret: 'process.env.CLOUDINARY_API_SECRET',
+  api_secret: 'iQ-BSAXHSDlHMw6nEw9dNY8ocJA',
 });
 const UPLOAD_PRESET = 'readit';
 
