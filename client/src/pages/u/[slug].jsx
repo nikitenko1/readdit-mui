@@ -158,6 +158,11 @@ const UserPage = () => {
             </div>
           )}
         </div>
+        {/* post.Ctrl getPosts 
+       const paginatedPosts = {previous: paginated.results.previous,
+       results: allPosts, next: paginated.results.next};
+       res.status(200).json(paginatedPosts); */}
+        {/* userPageReducer: results: [...state.posts.results, ...action.payload.posts.results], */}
         {'next' in userInfo.posts && (
           <LoadMoreButton
             handleLoadPosts={handleLoadPosts}

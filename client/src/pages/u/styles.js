@@ -13,6 +13,7 @@ export const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-around',
     margin: '0.5rem',
+    marginRight: '1.2rem',
     padding: '0.8rem',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',

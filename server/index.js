@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
-// const middleware = require('./utils/middleware');
+const path = require('path');
 
 const app = express();
 
@@ -19,7 +19,13 @@ app.use('/api/posts', require('./routes/post'));
 app.use('/api/subreddits', require('./routes/subreddit'));
 app.use('/api/users', require('./routes/user'));
 
-// app.use(middleware.unknownEndpointHandler);
+// Production Deploy
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client', 'build', 'index.html'));
+  });
+}
 
 // Listen server
 const PORT = process.env.PORT || 8800;
