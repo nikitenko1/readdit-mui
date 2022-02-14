@@ -104,6 +104,11 @@ const PostList = () => {
           </Typography>
         </div>
       )}
+      {/* post.Ctrl getPosts 
+       const paginatedPosts = {previous: paginated.results.previous,
+       results: allPosts, next: paginated.results.next};
+       res.status(200).json(paginatedPosts); */}
+      {/* userPageReducer: results: [...state.posts.results, ...action.payload.posts.results], */}
       {posts && 'next' in posts && !pageLoading && (
         <LoadMoreButton
           handleLoadPosts={handleLoadPosts}

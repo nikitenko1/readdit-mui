@@ -16,7 +16,7 @@ const getPosts = async (req, res) => {
   const limit = Number(req.query.limit);
   const sortBy = req.query.sortby;
 
-  let sortQuery;
+  let sortQuery; 
   switch (sortBy) {
     case 'new':
       sortQuery = { createdAt: -1 };
