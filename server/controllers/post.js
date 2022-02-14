@@ -5,18 +5,18 @@ const postTypeValidator = require('../utils/postTypeValidator');
 const paginateResults = require('../utils/paginateResults');
 const cloudinary = require('cloudinary').v2;
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: 'dvpy1nsjp',
+  api_key: '262435378638658',
+  api_secret: 'process.env.CLOUDINARY_API_SECRET',
 });
-const UPLOAD_PRESET = process.env.UPLOAD_PRESET;
+const UPLOAD_PRESET = 'readit';
 
 const getPosts = async (req, res) => {
   const page = Number(req.query.page);
   const limit = Number(req.query.limit);
   const sortBy = req.query.sortby;
 
-  let sortQuery; 
+  let sortQuery;
   switch (sortBy) {
     case 'new':
       sortQuery = { createdAt: -1 };
