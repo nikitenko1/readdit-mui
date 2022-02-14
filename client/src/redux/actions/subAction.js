@@ -35,29 +35,30 @@ export const setTopSubsList = () => async (dispatch) => {
   }
 };
 
-export const toggleSubscribe = (id, subscribedBy) => async (dispatch) => {
-  const subscriberCount = subscribedBy.length;
-  try {
-    dispatch({ type: ALERT, payload: { loading: true } });
-    dispatch({
-      type: SUBSCRIBE_SUB_FROM_LIST,
-      payload: { id, data: { subscribedBy, subscriberCount } },
-    });
+export const toggleSubscribe =
+  (id, subscribedBy, token) => async (dispatch) => {
+    const subscriberCount = subscribedBy.length;
+    try {
+      dispatch({ type: ALERT, payload: { loading: true } });
+      dispatch({
+        type: SUBSCRIBE_SUB_FROM_LIST,
+        payload: { id, data: { subscribedBy, subscriberCount } },
+      });
 
-    await subService.subscribeSub(id);
+      await subService.subscribeSub(id, token);
 
-    dispatch({ type: ALERT, payload: { loading: false } });
-  } catch (err) {
-    dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
-  }
-};
+      dispatch({ type: ALERT, payload: { loading: false } });
+    } catch (err) {
+      dispatch({ type: ALERT, payload: { errors: err.response.data.msg } });
+    }
+  };
 
 export const addNewSub = (values, token) => async (dispatch) => {
   try {
     const res = await subService.createSubreddit(values, token);
     dispatch({ type: ALERT, payload: { loading: true } });
     dispatch({
-      type: ADD_NEW_SUB, 
+      type: ADD_NEW_SUB,
       payload: {
         subredditName: res.subredditName,
         id: res.id,

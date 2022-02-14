@@ -34,13 +34,15 @@ const TopSubsPanel = () => {
 
   const handleJoinSub = (id, subscribedBy, subredditName) => {
     try {
+      if (!auth.token) return;
+
       let updatedSubscribedBy;
       if (subscribedBy.includes(auth.id)) {
         updatedSubscribedBy = subscribedBy.filter((s) => s !== auth.id);
       } else {
         updatedSubscribedBy = [...subscribedBy, auth.id];
       }
-      dispatch(toggleSubscribe(id, updatedSubscribedBy));
+      dispatch(toggleSubscribe(id, updatedSubscribedBy, auth.token));
       let message = subscribedBy.includes(auth.id)
         ? `Unsubscribed from r/${subredditName}`
         : `Subscribed to r/${subredditName}!`;
